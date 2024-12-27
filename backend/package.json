@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "scripts": {
-    "start": "node index.js" // Replace "index.js" with the main entry file of your project
+    "start": "node index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
