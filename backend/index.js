@@ -9,7 +9,7 @@ const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
 
 require('dotenv').config();
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 4000
 const JWT_SECRET = process.env.JWT_SECRET;
 
 
