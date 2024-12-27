@@ -1,4 +1,8 @@
 {
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js" // Replace "index.js" with the main entry file of your project
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
