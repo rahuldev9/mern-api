@@ -117,7 +117,6 @@ app.post("/login", async (req, resp) => {
       resp.status(500).send("An error occurred while logging in");
   }
 });
-
 app.post('/forgot-password', async (req, resp) => {
   const { email } = req.body;
 
