@@ -88,34 +88,33 @@ app.post("/register", async (req, resp) => {
 
 app.post("/login", async (req, resp) => {
   try {
-    const { email, password } = req.body;
+      const { email, password } = req.body;
 
-    // Check if user exists
-    let user = await User.findOne({ email });
-    if (!user) {
-      return resp.status(404).json({ error: "User not found" }); // Return JSON response
-    }
-
-    // Compare the entered password with the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return resp.status(401).json({ error: "Invalid credentials" }); // Return JSON response
-    }
-
-    // Remove password from user object
-    user = user.toObject();
-    delete user.password;
-
-    // Generate JWT
-    jwt.sign({ user }, JWT_SECRET, { expiresIn: "4h" }, (err, token) => {
-      if (err) {
-        return resp.status(500).json({ error: "Something went wrong!" }); // Return JSON response
+      // Check if user exists
+      let user = await User.findOne({ email });
+      if (!user) {
+          return resp.status(404).send("User not found");
       }
-      resp.json({ user, auth: token }); // Success response in JSON
-    });
+
+      // Compare the entered password with the hashed password
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+          return resp.status(401).send("Invalid credentials");
+      }
+
+      // Remove password from user object
+      user = user.toObject();
+      delete user.password;
+
+      // Generate JWT
+      jwt.sign({ user }, JWT_SECRET, { expiresIn: "4h" }, (err, token) => {
+          if (err) {
+              return resp.status(500).send("Something went wrong!");
+          }
+          resp.send({ user, auth: token });
+      });
   } catch (error) {
-    console.error("Login Error:", error); // Log the error for debugging
-    resp.status(500).json({ error: "An error occurred while logging in" }); // Return JSON response
+      resp.status(500).send("An error occurred while logging in");
   }
 });
 
